@@ -104,14 +104,14 @@ class Graph:
         node = starting_vertex
         # Check if the node has been visited
         if node not in visited:
+        # If not...
             print(node)
+            # Mark it as visited
             visited.add(node)
+            # Call dft_recursive on each neighbor
             neighbors = self.vertices[node]
             for neighbor in neighbors:
                 self.dft_recursive(neighbor, visited)
-        # If not...
-            # Mark it as visited
-            # Call dft_recursive on each neighbor
 
     def bfs(self, starting_vertex, destination_vertex):
         """
