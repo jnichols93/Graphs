@@ -132,6 +132,7 @@ class Graph:
             current_path = q.dequeue()
             # GRAB THE VERTEX FROM THE END OF THE PATH
             current_node = current_path[-1]
+            # CHECK IF IT'S THE TARGET
             if current_node == destination_vertex:
                 return current_path
             # Check if it's been visited
@@ -140,12 +141,11 @@ class Graph:
                 # Mark it as visited
                 visited.add(current_node)
                 neighbors = self.get_neighbors(current_node)
-                # CHECK IF IT'S THE TARGET
+                 # Enqueue A PATH TO all it's neighbors
                 for neighbor in neighbors:
                     path_copy = current_path[:]
                 # MAKE A COPY OF THE PATH
                     path_copy.append(neighbor)
-                # Enqueue A PATH TO all it's neighbors
                     q.enqueue(path_copy)
             # IF SO, RETURN THE PATH
             return path
