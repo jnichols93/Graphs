@@ -141,7 +141,7 @@ class Graph:
                 # Mark it as visited
                 visited.add(current_node)
                 neighbors = self.get_neighbors(current_node)
-                 # Enqueue A PATH TO all it's neighbors
+                # Enqueue A PATH TO all it's neighbors
                 for neighbor in neighbors:
                     path_copy = current_path[:]
                 # MAKE A COPY OF THE PATH
