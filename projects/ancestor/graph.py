@@ -138,7 +138,7 @@ class Graph:
                 if new_path:
                     return new_path
         return None
-
+# basically DFS
     def get_ancestor(self, starting_vertex):
         """
         Print each vertex in depth-first order
