@@ -1,4 +1,16 @@
 import random
+class Queue():
+    def __init__(self):
+        self.queue = []
+    def enqueue(self, value):
+        self.queue.append(value)
+    def dequeue(self):
+        if self.size() > 0:
+            return self.queue.pop(0)
+        else:
+            return None
+    def size(self):
+        return len(self.queue)
 class User:
     def __init__(self, name):
         self.name = name
@@ -74,8 +86,21 @@ class SocialGraph:
 
         The key is the friend's ID and the value is the path.
         """
+        # do a bft store paths as we go
+        # bfs
+        # create an empty queue
+        q = Queue
         visited = {}  # Note that this is a dictionary, not a set
-        # !!!! IMPLEMENT ME
+        # add PATH to the starting node to the queue
+        # while the queue is not empty...
+            # Dequeue the first Path from the Queue
+            # check if its been visited
+            # if not mark it as visited
+                # when we reach an unvisited node, add the path to the dict
+                # add a path to each neighbor
+
+        # when we reach unvisited node, add path to visited dict.
+        # return visited dictionary
         return visited
 
 
