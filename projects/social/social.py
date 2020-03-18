@@ -60,7 +60,7 @@ class SocialGraph:
         # Add users
         # write a for loop that calls create user the right amount of times
         for i in range(num_users):
-            self.add_user(f"User {i+1}")
+            self.add_user(f'User {i+1}')
         # Create friendships
         # to create N random friendships,
         # you could create a list  with all possible friendship combos
@@ -92,12 +92,22 @@ class SocialGraph:
         q = Queue
         visited = {}  # Note that this is a dictionary, not a set
         # add PATH to the starting node to the queue
+        q.enqueue( [user_id] )
         # while the queue is not empty...
+        while q.size() > 0:
             # Dequeue the first Path from the Queue
+            path = q.dequeue()
+            v = path[-1]
             # check if its been visited
-            # if not mark it as visited
-                # when we reach an unvisited node, add the path to the dict
-                # add a path to each neighbor
+            if v not in visited:
+                # when we reach an unvisited node, add the path to the dict            
+                visited[v] = path
+                # add a path to each neighbor to the back of the queue
+                for friendID in self.friendships[v]:
+                    path_copy = path.copy()
+                    path_copy.append(friendID)
+                    q.enqueue(path_copy)
+
 
         # when we reach unvisited node, add path to visited dict.
         # return visited dictionary
