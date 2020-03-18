@@ -56,11 +56,10 @@ class SocialGraph:
         self.users = {}
         self.friendships = {}
         # !!!! IMPLEMENT ME
-
         # Add users
         # write a for loop that calls create user the right amount of times
         for i in range(num_users):
-            self.add_user(f'User {i+1}')
+            self.add_user(f"User {i+1}")
         # Create friendships
         # to create N random friendships,
         # you could create a list  with all possible friendship combos
@@ -89,7 +88,7 @@ class SocialGraph:
         # do a bft store paths as we go
         # bfs
         # create an empty queue
-        q = Queue
+        q = Queue()
         visited = {}  # Note that this is a dictionary, not a set
         # add PATH to the starting node to the queue
         q.enqueue( [user_id] )
@@ -117,6 +116,9 @@ class SocialGraph:
 if __name__ == '__main__':
     sg = SocialGraph()
     sg.populate_graph(10, 2)
+    print("USERS:")
+    print(sg.users)
+    print("FRIENDSHIPS:")
     print(sg.friendships)
     connections = sg.get_all_social_paths(1)
     print(connections)
