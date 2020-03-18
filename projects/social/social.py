@@ -1,19 +1,27 @@
 import random
+
+
 class Queue():
     def __init__(self):
         self.queue = []
+
     def enqueue(self, value):
         self.queue.append(value)
+
     def dequeue(self):
         if self.size() > 0:
             return self.queue.pop(0)
         else:
             return None
+
     def size(self):
         return len(self.queue)
+
+
 class User:
     def __init__(self, name):
         self.name = name
+
 
 class SocialGraph:
     def __init__(self):
@@ -86,12 +94,11 @@ class SocialGraph:
         The key is the friend's ID and the value is the path.
         """
         # do a bft store paths as we go
-        # bfs
         # create an empty queue
         q = Queue()
         visited = {}  # Note that this is a dictionary aka hastable, not a set
         # add PATH to the starting node to the queue
-        q.enqueue( [user_id] )
+        q.enqueue([user_id])
         # while the queue is not empty...
         while q.size() > 0:
             # Dequeue the first Path from the Queue
@@ -99,7 +106,7 @@ class SocialGraph:
             v = path[-1]
             # check if its been visited
             if v not in visited:
-                # when we reach an unvisited node, add the path to the dict            
+                # when we reach an unvisited node, add the path to the dict
                 visited[v] = path
                 # add a path to each neighbor to the back of the queue
                 for friendID in self.friendships[v]:
@@ -113,7 +120,7 @@ class SocialGraph:
 
 if __name__ == '__main__':
     sg = SocialGraph()
-    sg.populate_graph(10, 2)
+    sg.populate_graph(1000, 5)
     print("USERS:")
     print(sg.users)
     print("FRIENDSHIPS:")
