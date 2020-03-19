@@ -24,14 +24,25 @@ world.load_graph(room_graph)
 # Print an ASCII map
 world.print_rooms()
 
-player = Player(world.starting_room)
+player = Player("Name", world.starting_room)
 
 # Fill this out with directions to walk
 # traversal_path = ['n', 'n']
 traversal_path = []
+own_graph ={
+    0:{'n':'?', 's': '?', 'e':'?', 'w':'?'}
+}
+# does a DFT to explore and log direction
+def dft():
+    # print("player.currentRoom.id = ", player.currentRoom.id)
+    # print("player.currentRoom.getExits() = ", player.currentRoom.getExits())
+    prev_room = player.currentRoom.id
+    prev_exits = player.currentRoom.getExits()
 
+    # pick rando dirction
+    direction = random.choice(player.currentRoom.getExits)
 
-
+    # algo then travels and logs "that" direction, and loops
 
 
 # TRAVERSAL TEST
