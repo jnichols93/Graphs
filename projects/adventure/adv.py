@@ -4,8 +4,7 @@ from world import World
 from util import Queue, Stack
 import random
 from ast import literal_eval
-import time
-import sys
+
 # Load world
 world = World()
 
@@ -24,26 +23,11 @@ world.load_graph(room_graph)
 # Print an ASCII map
 world.print_rooms()
 
-player = Player("Name", world.starting_room)
+player = Player(world.starting_room)
 
 # Fill this out with directions to walk
 # traversal_path = ['n', 'n']
 traversal_path = []
-own_graph ={
-    0:{'n':'?', 's': '?', 'e':'?', 'w':'?'}
-}
-# does a DFT to explore and log direction
-def dft():
-    # print("player.currentRoom.id = ", player.currentRoom.id)
-    # print("player.currentRoom.getExits() = ", player.currentRoom.getExits())
-    prev_room = player.currentRoom.id
-    prev_exits = player.currentRoom.getExits()
-
-    # pick rando dirction
-    direction = random.choice(player.currentRoom.getExits)
-
-    # algo then travels and logs "that" direction, and loops
-
 
 # TRAVERSAL TEST
 visited_rooms = set()
@@ -60,7 +44,40 @@ else:
     print("TESTS FAILED: INCOMPLETE TRAVERSAL")
     print(f"{len(room_graph) - len(visited_rooms)} unvisited rooms")
 
+the_rooms = {}
 
+for room in world.rooms:
+    the_rooms[room] = set()
+    for direction in world.rooms[room].get_exits():
+        the_rooms[room].add(direction)
+
+def connections(room):
+    return the_rooms[room]
+
+def dft(starting_location):
+    s = Stack()
+
+    s.push(starting_location)
+
+    visited = set()
+
+    while s.size() > 0:
+
+        v = s.pop()
+
+        if v.id not in visited:
+            visited.add(v.id)
+            for direction in connections(v.id):
+                if direction == 'n':
+                    s.push(v.n_to)
+                elif direction == 's':
+                    s.push(v.s_to)
+                elif direction == 'e':
+                    s.push(v.e_to)
+                else:
+                    s.push(v.w_to)
+
+    return visited
 
 #######
 # UNCOMMENT TO WALK AROUND
