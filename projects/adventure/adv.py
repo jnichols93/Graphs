@@ -1,7 +1,7 @@
 from room import Room
 from player import Player
 from world import World
-from util import Queue, Stack
+
 import random
 from ast import literal_eval
 
@@ -27,12 +27,51 @@ player = Player(world.starting_room)
 
 # Fill this out with directions to walk
 # traversal_path = ['n', 'n']
-traversal_path = []
+def reverse_direction(direction):
+    if direction == "n":
+        return "s"
+    elif direction == "s":
+        return "n"
+    elif direction == "e":
+        return "w"
+    elif direction == "w":
+        return "e"
+    else:
+        return "wrong direction"
+
 
 # TRAVERSAL TEST
+
 visited_rooms = set()
+traversal_path = []
 player.current_room = world.starting_room
-visited_rooms.add(player.current_room)
+current_directions = []
+while len(visited_rooms) != 500:
+    visited_rooms.add(player.current_room)
+
+    exits = player.current_room.get_exits()
+    if "n" in exits and player.current_room.get_room_in_direction("n") not in visited_rooms:
+        current_directions.append('n')
+        traversal_path.append('n')
+        player.current_room = player.current_room.get_room_in_direction("n")
+    elif "w" in exits and player.current_room.get_room_in_direction("w") not in visited_rooms:
+        current_directions.append('w')
+        traversal_path.append('w')
+        player.current_room = player.current_room.get_room_in_direction("w")
+    elif "s" in exits and player.current_room.get_room_in_direction("s") not in visited_rooms:
+        current_directions.append('s')
+        traversal_path.append('s')
+        player.current_room = player.current_room.get_room_in_direction("s")
+    elif "e" in exits and player.current_room.get_room_in_direction("e") not in visited_rooms:
+        current_directions.append('e')
+        traversal_path.append('e')
+        player.current_room = player.current_room.get_room_in_direction("e")
+    else:
+        last_direction = current_directions.pop()
+        traversal_path.append(reverse_direction(last_direction))
+        player.current_room = player.current_room.get_room_in_direction(reverse_direction(last_direction))
+    
+
 
 for move in traversal_path:
     player.travel(move)
@@ -44,50 +83,15 @@ else:
     print("TESTS FAILED: INCOMPLETE TRAVERSAL")
     print(f"{len(room_graph) - len(visited_rooms)} unvisited rooms")
 
-the_rooms = {}
-
-for room in world.rooms:
-    the_rooms[room] = set()
-    for direction in world.rooms[room].get_exits():
-        the_rooms[room].add(direction)
-
-def connections(room):
-    return the_rooms[room]
-
-def dft(starting_location):
-    s = Stack()
-
-    s.push(starting_location)
-
-    visited = set()
-
-    while s.size() > 0:
-
-        v = s.pop()
-
-        if v.id not in visited:
-            visited.add(v.id)
-            for direction in connections(v.id):
-                if direction == 'n':
-                    s.push(v.n_to)
-                elif direction == 's':
-                    s.push(v.s_to)
-                elif direction == 'e':
-                    s.push(v.e_to)
-                else:
-                    s.push(v.w_to)
-
-    return visited
-
-#######
+# ######
 # UNCOMMENT TO WALK AROUND
-#######
-player.current_room.print_room_description(player)
-while True:
-    cmds = input("-> ").lower().split(" ")
-    if cmds[0] in ["n", "s", "e", "w"]:
-        player.travel(cmds[0], True)
-    elif cmds[0] == "q":
-        break
-    else:
-        print("I did not understand that command.")
+# ######
+# player.current_room.print_room_description(player)
+# while True:
+#     cmds = input("-> ").lower().split(" ")
+#     if cmds[0] in ["n", "s", "e", "w"]:
+#         player.travel(cmds[0], True)
+#     elif cmds[0] == "q":
+#         break
+#     else:
+#         print("I did not understand that command.")
