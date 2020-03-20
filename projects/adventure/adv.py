@@ -4,7 +4,7 @@ from world import World
 
 import random
 from ast import literal_eval
-# BFT all the rooms in order
+# BFS all the rooms in order
 # Load world
 world = World()
 
@@ -27,6 +27,7 @@ player = Player(world.starting_room)
 
 # Fill this out with directions to walk
 # traversal_path = ['n', 'n']
+# 
 def reverse_direction(direction):
     if direction == "n":
         return "s"
@@ -41,6 +42,7 @@ def reverse_direction(direction):
 # TRAVERSAL TEST
 # Create a set to store visited vertices // "rooms"
 visited_rooms = set()
+# stores directions
 traversal_path = []
 # Where we @
 player.current_room = world.starting_room
@@ -68,7 +70,7 @@ while len(visited_rooms) != 500:
         current_directions.append('e')# Mark it as visited
         traversal_path.append('e')# Mark it as visited
         player.current_room = player.current_room.get_room_in_direction("e")
-    else:
+    else:  # basically the dequeue part 
         last_direction = current_directions.pop() # current room addec to last_direction
         traversal_path.append(reverse_direction(last_direction))
         player.current_room = player.current_room.get_room_in_direction(reverse_direction(last_direction))
