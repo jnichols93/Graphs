@@ -39,9 +39,8 @@ def reverse_direction(direction):
     else:
         return "wrong direction"
 # TRAVERSAL TEST
-# Create a set to store visited vertices
+# Create a set to store visited vertices // "rooms"
 visited_rooms = set()
-
 traversal_path = []
 # Where we @
 player.current_room = world.starting_room
