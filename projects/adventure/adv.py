@@ -4,7 +4,7 @@ from world import World
 
 import random
 from ast import literal_eval
-
+# BFT all the rooms in order
 # Load world
 world = World()
 
@@ -38,40 +38,41 @@ def reverse_direction(direction):
         return "e"
     else:
         return "wrong direction"
-
-
 # TRAVERSAL TEST
-
+# Create a set to store visited vertices
 visited_rooms = set()
+
 traversal_path = []
+# Where we @
 player.current_room = world.starting_room
+
 current_directions = []
+# While the queue is not empty... aka visited rooms isnt full
 while len(visited_rooms) != 500:
     visited_rooms.add(player.current_room)
 
     exits = player.current_room.get_exits()
+# Check if it's been visited
     if "n" in exits and player.current_room.get_room_in_direction("n") not in visited_rooms:
-        current_directions.append('n')
-        traversal_path.append('n')
+        current_directions.append('n') # Mark it as visited
+        traversal_path.append('n')# Mark it as visited
         player.current_room = player.current_room.get_room_in_direction("n")
     elif "w" in exits and player.current_room.get_room_in_direction("w") not in visited_rooms:
-        current_directions.append('w')
-        traversal_path.append('w')
+        current_directions.append('w')# Mark it as visited
+        traversal_path.append('w')# Mark it as visited
         player.current_room = player.current_room.get_room_in_direction("w")
     elif "s" in exits and player.current_room.get_room_in_direction("s") not in visited_rooms:
-        current_directions.append('s')
-        traversal_path.append('s')
+        current_directions.append('s')# Mark it as visited
+        traversal_path.append('s')# Mark it as visited
         player.current_room = player.current_room.get_room_in_direction("s")
     elif "e" in exits and player.current_room.get_room_in_direction("e") not in visited_rooms:
-        current_directions.append('e')
-        traversal_path.append('e')
+        current_directions.append('e')# Mark it as visited
+        traversal_path.append('e')# Mark it as visited
         player.current_room = player.current_room.get_room_in_direction("e")
     else:
-        last_direction = current_directions.pop()
+        last_direction = current_directions.pop() # current room addec to last_direction
         traversal_path.append(reverse_direction(last_direction))
         player.current_room = player.current_room.get_room_in_direction(reverse_direction(last_direction))
-    
-
 
 for move in traversal_path:
     player.travel(move)
@@ -86,12 +87,12 @@ else:
 # ######
 # UNCOMMENT TO WALK AROUND
 # ######
-# player.current_room.print_room_description(player)
-# while True:
-#     cmds = input("-> ").lower().split(" ")
-#     if cmds[0] in ["n", "s", "e", "w"]:
-#         player.travel(cmds[0], True)
-#     elif cmds[0] == "q":
-#         break
-#     else:
-#         print("I did not understand that command.")
+player.current_room.print_room_description(player)
+while True:
+    cmds = input("-> ").lower().split(" ")
+    if cmds[0] in ["n", "s", "e", "w"]:
+        player.travel(cmds[0], True)
+    elif cmds[0] == "q":
+        break
+    else:
+        print("I did not understand that command.")
