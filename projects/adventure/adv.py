@@ -42,7 +42,7 @@ def reverse_direction(direction):
 # TRAVERSAL TEST
 # Create a set to store visited vertices // "rooms"
 visited_rooms = set()
-# stores directions
+# path 1
 traversal_path = []
 # Where we @
 player.current_room = world.starting_room
@@ -71,7 +71,7 @@ while len(visited_rooms) != 500:
         traversal_path.append('e')# Mark it as visited
         player.current_room = player.current_room.get_room_in_direction("e")
     else:  # basically the dequeue part 
-        last_direction = current_directions.pop() # current room addec to last_direction
+        last_direction = current_directions.pop() 
         traversal_path.append(reverse_direction(last_direction))
         player.current_room = player.current_room.get_room_in_direction(reverse_direction(last_direction))
 
